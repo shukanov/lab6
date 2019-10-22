@@ -1,8 +1,8 @@
 <?php
 session_start();
-if(!(isset($_SESSION['username'])))
+if(!(isset($_SESSION['login'])))
 {
-    header("Location: entry.php");
+    header("Location: registration/entry.php");
     exit;
 }
 include "../connection.php";
@@ -43,13 +43,13 @@ foreach($dbh->query($requery) as $row)
 						<a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="event.php">Секции</a>
+						<a class="nav-link" href="../section.php">Секции</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="profile.php">Личный кабинет</a>
+						<a class="nav-link" href="../profile.php">Личный кабинет</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="exit.php">Выйти</a>
+						<a class="nav-link" href="../exit.php">Выйти</a>
 					</li>
 				</ul>
 				<form class="form-inline mt-2 mt-md-0">

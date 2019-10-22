@@ -31,7 +31,7 @@
               <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="event.php">Секции</a>
+              <a class="nav-link" href="section.php">Секции</a>
             </li>
             <?php 
             if(isset($_SESSION['login']))
