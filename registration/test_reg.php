@@ -20,6 +20,7 @@ else
     $password = htmlspecialchars($password, ENT_QUOTES);
     $password = trim($password); // удаление пробелов
 
+   
     $requery = 'SELECT * FROM clients WHERE login=:login';  
     $stmt = $dbh->prepare($requery, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $stmt->execute(array (':login' => $login));
@@ -32,7 +33,7 @@ else
         }
         else
         {
-            if($row[0]['password'] == $password)
+            if(password_verify($password, $row[0]['password']))
             {
                 if($row[0]['activation'] == 1)
                 {

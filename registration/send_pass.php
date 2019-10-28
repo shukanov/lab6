@@ -6,6 +6,7 @@ if(isset($_POST['login']) and isset($_POST['email']))
     $login = $_POST['login'];
     $email = $_POST['email'];
 
+
     $requery = 'SELECT * FROM clients WHERE login=:login and email=:email and activation=1';  
     $stmt = $dbh->prepare($requery, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $stmt->execute(array (':login' => $login, ':email' => $email));
@@ -21,10 +22,11 @@ if(isset($_POST['login']) and isset($_POST['email']))
         $datenow = date('YmdHis');//извлекаем    дату 
         $new_password = hash('sha256', $datenow);// шифруем    дату
         $new_password = substr($new_password,    2, 10); //извлекаем из шифра 10 символов начиная    со второго. Это и будет наш случайный пароль. Далее запишем его в базу,    зашифровав точно так же, как и обычно.
-        
+        $password = password_hash($new_password, PASSWORD_DEFAULT); //пароль в бд
+
         $requery = 'UPDATE clients SET password=:password WHERE login=:login'; // изменяем пароль на новый
         $stmt = $dbh->prepare($requery, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-        $stmt->execute(array (':password' => $new_password, ':login' => $login));
+        $stmt->execute(array (':password' => $password, ':login' => $login));
         
         $charset = "utf-8";
         $headerss ="Content-type: text/html; charset=$charset\r\n";

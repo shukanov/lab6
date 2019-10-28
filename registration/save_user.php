@@ -42,6 +42,8 @@ if(isset($_POST['submit']))
         $pass1 = htmlspecialchars($pass1, ENT_QUOTES);
         $pass1 = trim($pass1); // удаление пробелов
 
+        $pass1 = password_hash($pass1, PASSWORD_DEFAULT);
+
         $requery = 'SELECT * FROM clients WHERE login=:login';  
         $stmt = $dbh->prepare($requery, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         $stmt->execute(array (':login' => $login));
@@ -75,7 +77,7 @@ if(isset($_POST['submit']))
             $activation = $sha256_login . $sha256_id; //код активации аккаунта. Зашифруем через хеш sha256 идентификатор и логин.
             $subject    = "Подтверждение регистрации";
             $message    = "Здравствуйте! Спасибо за регистрацию на test.ru\nВаш логин:    ".$login."\n
-            Перейдите    по ссылке, чтобы активировать ваш    аккаунт:\nhttp://test/registration/activation.php?login=".$login."&code=".$activation."\nС    уважением,\n
+            Перейдите    по ссылке, чтобы активировать ваш    аккаунт:\nhttp://lab6/registration/activation.php?login=".$login."&code=".$activation."\nС    уважением,\n
             Администрация    test.ru";//содержание сообщение
             mail($email, $subject, $message, $headerss);//отправляем сообщение                    
             

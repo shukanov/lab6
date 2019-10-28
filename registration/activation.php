@@ -6,6 +6,7 @@ if(isset($_GET['code']))
     $code = $_GET['code'];
     $login = $_GET['login'];
 
+
     $requery = 'SELECT * FROM clients WHERE login=:login';  
     $stmt = $dbh->prepare($requery, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $stmt->execute(array (':login' => $login));
