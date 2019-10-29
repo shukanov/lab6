@@ -12,6 +12,8 @@
           <div class="col-md-7">
             <h2 class="featurette-heading"><?= $title ?> </h2>
             <p class="lead"><?= $desc ?> </p>
+            <small>Автор: <?= "$first_name $last_name"?> </small>
+            <p><small>Дата публикации: <?= $date?> </small></p>
           </div>
           <div class="col-md-5">
             <img class="featurette-image img-fluid mx-auto" src="/img/<?=$img?>" alt="Generic placeholder image">
