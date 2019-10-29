@@ -37,7 +37,7 @@ else
             {
                 if($row[0]['activation'] == 1)
                 {
-                    $_SESSION['login'] = $row[0]['login'];
+                    $_SESSION['login'] = $row[0]['first_name'];
                     $_SESSION['id'] = $row[0]['id'];
                     header("Location: ../index.php");
                 }

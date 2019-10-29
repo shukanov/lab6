@@ -1,6 +1,8 @@
 <?php
 require "../connection.php";
 
+$first_name = $_POST['first_name'];
+$last_name = $_POST['last_name'];
 $login = $_POST['login'];
 $pass1 = $_POST['password1'];
 $pass2 = $_POST['password2'];
@@ -8,7 +10,7 @@ $email = $_POST['email'];
 
 if(isset($_POST['submit']))
 {
-    if($login == NULL || $pass1 == NULL || $pass2 == NULL || $email == NULL)
+    if($first_name == NULL || $last_name == NULL || $login == NULL || $pass1 == NULL || $pass2 == NULL || $email == NULL)
     {
       $text = 'Вы не ввели все данные';	
       require 'errors.php';
@@ -34,6 +36,14 @@ if(isset($_POST['submit']))
     }
     else
     {
+        $first_name = stripcslashes($first_name);  //обработка логина
+        $first_name = htmlspecialchars($first_name, ENT_QUOTES);
+        $first_name = trim($first_name); // удаление пробелов
+
+        $last_name = stripcslashes($last_name);  //обработка логина
+        $last_name = htmlspecialchars($last_name, ENT_QUOTES);
+        $last_name = trim($last_name); // удаление пробелов
+
         $login = stripcslashes($login);  //обработка логина
         $login = htmlspecialchars($login, ENT_QUOTES);
         $login = trim($login); // удаление пробелов
@@ -56,9 +66,9 @@ if(isset($_POST['submit']))
         }
         else
         {
-            $requery = 'INSERT INTO clients (login, password, email, date) VALUES (:login, :password, :email, NOW())';
+            $requery = 'INSERT INTO clients (first_name, last_name, login, password, email, date) VALUES (:first_name, :last_name, :login, :password, :email, NOW())';
             $stmt = $dbh->prepare($requery, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-            $stmt->execute(array (':login' => $login, ':password' => $pass1, ':email' => $email));
+            $stmt->execute(array (':first_name' => $first_name, ':last_name' => $last_name, ':login' => $login, ':password' => $pass1, ':email' => $email));
 
             $requery = 'SELECT * FROM clients WHERE login=:login';  
             $stmt = $dbh->prepare($requery, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -76,7 +86,7 @@ if(isset($_POST['submit']))
             
             $activation = $sha256_login . $sha256_id; //код активации аккаунта. Зашифруем через хеш sha256 идентификатор и логин.
             $subject    = "Подтверждение регистрации";
-            $message    = "Здравствуйте! Спасибо за регистрацию на test.ru\nВаш логин:    ".$login."\n
+            $message    = "Здравствуйте ".$first_name."! Спасибо за регистрацию на test.ru\nВаш логин:    ".$login."\n
             Перейдите    по ссылке, чтобы активировать ваш    аккаунт:\nhttp://lab6/registration/activation.php?login=".$login."&code=".$activation."\nС    уважением,\n
             Администрация    test.ru";//содержание сообщение
             mail($email, $subject, $message, $headerss);//отправляем сообщение                    
