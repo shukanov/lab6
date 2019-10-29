@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+ 
     <title>test</title>
 	
 	<link href="../style.css" rel="stylesheet">
@@ -14,6 +14,7 @@
 	 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://vk.com/js/api/openapi.js?162" type="text/javascript"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
@@ -56,6 +57,20 @@
             <button type="submit" name="submit" class="btn btn-primary">Войти</button>
             <a href="form_send_pass.php"><small>Забыли пароль?</small></a>
           </form>
+        </div>
+        <br>
+        <div class="d-flex justify-content-center align-content-center">
+          <script type="text/javascript">
+              VK.init({
+                apiId: 7179769
+              });
+            </script>
+            <div id="vk_auth"></div>
+            <script type="text/javascript">
+            VK.Widgets.Auth('vk_auth', {
+              "authUrl":"entry_vk.php"
+            });
+          </script>
         </div>
       </div> <!-- container -->
     </div><!-- /.wrap -->
